@@ -1,103 +1,96 @@
-import Image from "next/image";
+import React from 'react';
+import Link from 'next/link';
+import Hero from '@/components/Hero';
+import { ChevronRight } from 'lucide-react';
+import FeatruredPropertySection from '@/components/FeaturedPropertySection ';
 
-export default function Home() {
+const page = () => {
+  const carouselData = [
+    {
+      image: "/exclusive/bvlgari/1.webp",
+      subtitle: "Bvlgari Resorts & Hotel",
+      title: "Bvlgari Mansion",
+      price: "AED 495,000,000",
+      link: "exclusive/Bvlgari.html",
+    },
+    {
+      image: "/exclusive/j20/images/home.webp",
+      subtitle: "Palm Jumeirah",
+      title: "Custom-built Signature Villa",
+      price: "AED 250,000,000",
+      link: "exclusive/Villa Frond J.html",
+    },
+    {
+      image: "/exclusive/Ocean Mansion/images/EXTERIOR_3-2.webp",
+      subtitle: "Bvlgari Resorts & Hotel",
+      title: "Bvlgari Ocean Mansion",
+      price: "AED 180,000,000",
+      link: "exclusive/ocean mansion.html",
+    },
+    {
+      image: "/exclusive/g11/images/home.png",
+      subtitle: "Palm Jumeirah",
+      title: "Billionaires’ Row Signature Villa",
+      price: "AED 165,000,000",
+      link: "exclusive/La Solaro.html",
+    },
+    {
+      image: "/exclusive/Villa Palm/images/home.webp",
+      subtitle: "Palm Jumeirah",
+      title: "Modern Garden Villa",
+      price: "Price Upon Request",
+      link: "exclusive/Villa Palm.html",
+    },
+    {
+      image: "/exclusive/Villa Frond A/images/1.webp",
+      subtitle: "Palm Jumeirah",
+      title: "Signature Villa",
+      price: "AED 135,000,000",
+      link: "exclusive/Villa Frond A.html",
+    },
+    {
+      image: "/exclusive/Villa Frond L/images/36-2.webp",
+      subtitle: "Palm Jumeirah",
+      title: "Villa Frond L",
+      price: "AED 65,000,000",
+      link: "exclusive/Villa Frond L.html",
+    },
+    {
+      image: "/exclusive/Mansion Al Barari/images/0.png",
+      subtitle: "Al Barari",
+      title: "Mansion Al Barari",
+      price: "AED 75,000,000",
+      link: "exclusive/mansion al barari.html",
+    }
+  ];
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <>
+      <Hero data={carouselData} />
+      <div className='my-10 py-10'>
+        <h1 className="text-4xl font-bold text-center mt-10">
+          Shaping <span className="text-accent">Signature Lifestyles</span>
+        </h1>
+        <h2 className="text-3xl text-center mt-4">
+          Unmatched <span className="text-accent">Expertise</span>
+        </h2>
+        <hr className="w-4/5 border-t-2 border-accent mx-auto my-4" />
+        <p className="text-center text-lg px-4">
+          We bring you the city&apos;s most extraordinary homes, connect with us and secure your place among the elite.
+        </p>
+        <div className="flex justify-center mt-6">
+          <Link
+            href='/about-us'
+            className="bg-black/80 text-white px-6 py-2 rounded-sm font-semibold inline-flex items-center gap-2 hover:bg-accent transition"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            About Us
+            <ChevronRight className="w-4 h-4" />
+          </Link>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </div>
+      <FeatruredPropertySection />
+    </>
   );
-}
+};
+
+export default page;
