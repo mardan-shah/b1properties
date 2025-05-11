@@ -87,8 +87,9 @@
   body {
     @apply bg-background text-foreground;
   }
-  
+
 }
+
 
 @keyframes fade-in {
   0% {
@@ -104,4 +105,3 @@
 .animate-fade-in {
   animation: fade-in 0.4s ease-out forwards;
 }
-

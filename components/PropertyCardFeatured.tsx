@@ -1,23 +1,14 @@
 "use client"
 
 import Image from "next/image"
-import { MapPin, Bed, Bath, Square, ArrowRight } from "lucide-react"
+import { MapPin, Bed, Bath, LandPlot, ArrowRight } from "lucide-react"
 import { Card } from "@/components/ui/card"
+import { iPropertyCardProps } from "@/types/types"
 
-interface PropertyCardProps {
-  image: string
-  name: string
-  location: string
-  bedrooms: number
-  bathrooms: number
-  area: number
-  areaUnit?: string
+interface iProps {
+  data: iPropertyCardProps[]
 }
-
-interface Props {
-  data: PropertyCardProps[]
-}
-const PropertyCard: React.FC<Props> = ({ data }) => {
+const PropertyCard: React.FC<iProps> = ({ data }) => {
   return (
     <>
       {data.map((property, index) => (
@@ -52,7 +43,7 @@ const PropertyCard: React.FC<Props> = ({ data }) => {
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <Square className="h-5 w-5" />
+                  <LandPlot className="h-5 w-5" />
                   <span>
                     {property.area.toLocaleString()} {property.areaUnit}
                   </span>

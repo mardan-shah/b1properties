@@ -2,7 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import Hero from '@/components/Hero';
 import { ChevronRight } from 'lucide-react';
-import FeatruredPropertySection from '@/components/FeaturedPropertySection ';
+import FeatruredPropertySection from '@/components/FeaturedPropertySection';
+import PrivateLisingSection from '@/components/PrivateLisingSection';
 
 const page = () => {
   const carouselData = [
@@ -67,7 +68,7 @@ const page = () => {
   return (
     <>
       <Hero data={carouselData} />
-      <div className='my-10 py-10'>
+      <div className=' my-50'>
         <h1 className="text-4xl font-bold text-center mt-10">
           Shaping <span className="text-accent">Signature Lifestyles</span>
         </h1>
@@ -89,6 +90,8 @@ const page = () => {
         </div>
       </div>
       <FeatruredPropertySection />
+      <PrivateLisingSection />
+
     </>
   );
 };
