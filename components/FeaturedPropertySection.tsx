@@ -26,23 +26,23 @@ const property= [
 
 const FeaturedPropertySection  = () => {
   return (   
-    <section className="h-screen my-50 mx-5">
-      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center my-6">Featured Property</h1>
+    <section className="h-screen my-10 md:my-30 mx-[5px]">
+      <h1 className="heading">Featured Property</h1>
 
-      <div className="grid grid-cols-2 grid-rows-3 md:grid-cols-5 md:grid-rows-4 gap-1 h-screen ">
+      <div className="grid grid-cols-2 grid-rows-3 md:grid-cols-3 md:grid-rows-2 gap-1 h-screen ">
         
         {/* Carousel */}
-        <div className="col-span-2 row-span-1 md:col-span-3 md:row-span-2 rounded-sm">
+        <div className="col-span-2 row-span-1 md:col-span-2 rounded-sm">
           <CarouselSection data={featuredImages} />
         </div>
 
         {/* Property Card */}
-        <div className="col-span-2 row-span-1 md:col-span-2 md:row-span-4 md:col-start-4 rounded-sm">
+        <div className="col-span-2 row-span-1 md:row-span-2 md:col-start-3 rounded-sm">
           <PropertyCard data={property} />
         </div>
 
         {/* About Section */}
-        <div className="col-span-1 row-span-1 md:col-span-2 md:row-span-2 md:row-start-3 rounded-sm bg-black/90 text-white p-4 sm:p-6 flex flex-col justify-between">
+        <div className="col-span-1 row-span-1 md:row-start-2 rounded-sm bg-black/90 text-white p-4 sm:p-6 flex flex-col justify-between">
           <div>
             <h1 className="text-lg md:text-2xl lg:text-3xl md:mt-5 font-bold mb-2">About</h1>
             <h3 className="text:md md:text-xl lg:text-2xl md:pt-2 font-semibold mb-1">
@@ -60,7 +60,7 @@ const FeaturedPropertySection  = () => {
         </div>
 
         {/* Static Image */}
-        <div className="col-span-1 row-span-1 md:row-span-2 md:col-start-3 md:row-start-3 rounded-sm">
+        <div className="col-span-1 row-span-1 md:row-start-2 rounded-sm">
           <ImageWrapper
             src="/exclusive/Ocean Mansion/images/3.webp"
             width={1920}

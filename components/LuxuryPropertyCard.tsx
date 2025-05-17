@@ -2,7 +2,7 @@
 
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { MapPin, Bed, Bath, LandPlot } from "lucide-react"
+import { MapPin, Bed, Bath, SquaresSubtract } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useState, useEffect, useRef } from "react"
@@ -46,8 +46,8 @@ export default function LuxuryPropertyCard({ property }: PropertyCardProps) {
 
   return (
     <Link href={property.href} className="block w-full max-w-xl">
-      <Card className="h-full min-w-full  group overflow-hidden rounded-xl border shadow-md transition-all duration-300 hover:shadow-xl">
-        {/* Property Image Carousel */}
+      <Card className="h-full min-w-full group overflow-hidden rounded-sm transition-all duration-300 hover:border border-gray-400">
+        {/* Property Image Carousel */} 
         <div className="relative -mt-6" onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>
           <div className="aspect-[16/9] w-full overflow-hidden">
             <div className="relative h-full w-full">
@@ -67,7 +67,7 @@ export default function LuxuryPropertyCard({ property }: PropertyCardProps) {
             </div>
           </div>
           {property.featured && (
-            <Badge className="absolute left-3 top-3 bg-black text-white backdrop-blur-sm">Featured</Badge>
+            <Badge className="absolute left-3 top-3 bg-accent text-white backdrop-blur-sm">Featured</Badge>
           )}
 
           {/* Image indicator dots */}
@@ -84,35 +84,39 @@ export default function LuxuryPropertyCard({ property }: PropertyCardProps) {
         </div>
 
         {/* Property Details */}
-        <CardContent className="p-4 sm:p-6">
-          <div className="mb-4">
+        <CardContent className="px-4">
+          <div className="mb-1">
             <h3 className="text-xl font-semibold tracking-tight line-clamp-1">{property.title}</h3>
-            <div className="mt-1 flex items-center gap-1 text-muted-foreground">
+            <div className="mt-1 flex items-center gap-1 text-muted-foreground  border-b pb-2">
               <MapPin className="h-4 w-4 flex-shrink-0" />
               <span className="text-sm">{property.location}</span>
             </div>
           </div>
 
-          <div className="grid grid-cols-5 border-t border-muted pt-4">
-            <div className="col-span-1 flex gap-2 items-center justify-center min-h-[48px]">
+          <div className="flex justify-between items-center pt-2 text-sm sm:text-[16px]">
+            <div className="flex items-center gap-1 ">
               <Bed className="h-5 w-5 text-muted-foreground" />
-              <span className="font-medium leading-none">{property.bedrooms}</span>
+              <span className=" text-muted-foreground font-medium leading-none"> | {property.bedrooms}</span>
             </div>
 
-            <div className="col-span-1 flex gap-2 items-center justify-center min-h-[48px]">
+            <div className="flex items-center gap-1 ">
               <Bath className="h-5 w-5 text-muted-foreground" />
-              <span className="font-medium leading-none">{property.bathrooms}</span>
+              <span className=" text-muted-foreground font-medium leading-none"> | {property.bathrooms}</span>
             </div>
 
-            <div className="col-span-1 flex gap-2 items-center justify-center min-h-[48px]">
-              <LandPlot className="h-5 w-5 text-muted-foreground" />
-              <span className="font-medium leading-none whitespace-nowrap">{property.squareFootage}</span>
+            <div className="flex items-center gap-1 ">
+              <SquaresSubtract className="h-5 w-5 text-muted-foreground" />
+              <span className=" text-muted-foreground font-medium leading-none whitespace-nowrap"> | {property.squareFootage}</span>
             </div>
 
-            <div className="col-span-2 flex gap-2 items-center justify-center min-h-[48px]">
-              <span className="text-xs text-muted-foreground leading-none">{property.currency}</span>
-              <span className="text-accent font-medium whitespace-nowrap leading-none">{formattedPrice}</span>
-            </div>
+            {property.price ? (
+                <div className="flex items-center gap-1 ">
+                  <span className="text-[10px] sm:text-xs text-muted-foreground leading-none">{property.currency}</span>
+                  <span className=" text-muted-foreground font-medium whitespace-nowrap leading-none">{formattedPrice}</span>
+                </div>
+            ):(
+                <span className=" text-muted-foreground font-medium leading-none whitespace-nowrap">Price Upon Request</span>
+            )}
           </div>
         </CardContent>
       </Card>

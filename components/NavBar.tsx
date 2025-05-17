@@ -53,7 +53,7 @@ const NavBar = () => {
   }, [isMobileMenuOpen])
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between text-white px-6 py-3 
+    <nav className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between text-white sm:px-3 md:px-10 
                    ${scrolled ? 'bg-[#181616f5]' : 'bg-gradient-to-r from-[#181616c5] to-[#241622b9]'} 
                    backdrop-blur-sm transition-all duration-300 shadow-lg`}>
       {/* Logo */}
@@ -64,14 +64,14 @@ const NavBar = () => {
             alt="Logo" 
             width={140} 
             height={60} 
-            className="h-auto transition duration-300 hover:opacity-90" 
+            className="w-28 sm:w-32 md:w-36 lg:w-40 h-auto transition duration-300 hover:opacity-90" 
             priority 
           />
         </Link>
       </div>
 
       {/* Desktop Navigation */}
-      <div className="hidden lg:flex items-center justify-end gap-2 text-[0.8rem] xl:text-[0.9rem] font-bold xl:gap-8 lg:px-8 md:px-6 sm:px-4">
+      <div className="hidden lg:flex items-center justify-end gap-2 text-xs xl:text-sm font-bold xl:gap-8 lg:px-8 md:px-6 sm:px-4">
         {navLinks.slice(0, 4).map((link) => (
           <Link 
             key={link.label} 
@@ -119,7 +119,7 @@ const NavBar = () => {
             href={`https://wa.me/${whatsappNumber}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center space-x-2 bg-white text-green-600 font-medium py-3 px-5 rounded-full transition duration-300 ease-in-out border-2 border-green-500 hover:bg-green-500 hover:text-white hover:border-green-600 transform hover:scale-[1.02]"
+            className="flex items-center space-x-2 bg-white text-green-600 py-3 px-5 rounded-full transition duration-300 ease-in-out border-2 border-green-500 hover:bg-green-500 hover:text-white hover:border-green-600 transform hover:scale-[1.02]"
             aria-label="Chat with us on WhatsApp"
           >
             <FaWhatsapp size={18} />
@@ -139,17 +139,17 @@ const NavBar = () => {
 
       {/* Mobile Menu Dropdown */}
       <div
-        className={`lg:hidden fixed top-34 left-0 right-0 ${scrolled ? 'bg-[#181616f5]' : 'bg-gradient-to-r from-[#181616c5] to-[#241622b9]'} 
+        className={`lg:hidden fixed top-[5.5rem] left-0 right-0 ${scrolled ? 'bg-[#181616f5]' : 'bg-gradient-to-r from-[#181616d6] to-[#241622b9]'} 
                   backdrop-blur-sm shadow-xl z-50 max-h-[calc(100vh-60px)] overflow-y-auto 
                   transition-all duration-300 ease-in-out mobile-menu
                   ${isMobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'}`}
       >
-        <div className="flex flex-col py-6 px-6 space-y-5">
+        <div className="flex flex-col py-4 px-6 space-y-2">
           {navLinks.slice(0, 4).map((link) => (
             <Link
               key={link.label}
               href={link.href}
-              className="text-white text-lg font-medium py-2 border-b border-gray-700 hover:text-gray-300 transition-colors"
+              className="text-white text-sm py-2 border-b border-gray-700 hover:text-gray-300 transition-colors"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               {link.label}
@@ -158,10 +158,10 @@ const NavBar = () => {
 
           {/* Who We Are - Mobile version */}
           <div className="space-y-3 border-b border-gray-700 pb-3">
-            <div className="text-white text-lg font-medium py-2">
+            <div className="text-white text-sm py-2">
               Who We Are
             </div>
-            <div className="flex flex-col space-y-3 pl-4">
+            <div className="flex flex-col space-y-1 pl-4">
               <Link
                 href="/about-us"
                 className="text-gray-300 hover:text-white transition-colors"
@@ -182,7 +182,7 @@ const NavBar = () => {
           {/* Book Appointment */}
           <Link
             href="/about"
-            className="text-white text-lg font-medium py-2 border-b border-gray-700 hover:text-gray-300 transition-colors"
+            className="text-white text-sm py-2 border-b border-gray-700 hover:text-gray-300 transition-colors"
             onClick={() => setIsMobileMenuOpen(false)}
           >
             Book Appointment
@@ -193,7 +193,7 @@ const NavBar = () => {
             href={`https://wa.me/${whatsappNumber}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center w-full space-x-2 bg-white text-green-600 font-medium py-2.5 px-5 rounded-full transition duration-300 ease-in-out border-2 border-green-500 hover:bg-green-500 hover:text-white hover:border-green-600 mt-4 mx-auto"
+            className="flex items-center justify-center w-full space-x-2 bg-white text-green-600 py-2.5 px-5 rounded-full transition duration-300 ease-in-out border-2 border-green-500 hover:bg-green-500 hover:text-white hover:border-green-600 mt-4 mx-auto"
             aria-label="Chat with us on WhatsApp"
             onClick={() => setIsMobileMenuOpen(false)}
           >

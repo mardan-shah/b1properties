@@ -6,6 +6,7 @@ import Carousel, { ArrowProps } from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { iCarouselItemData } from '@/types/types';
+import CustomButton from './ui/CustomButton';
 
 interface iHeroProps {
   data: iCarouselItemData[];
@@ -23,7 +24,7 @@ const CustomLeftArrow: React.FC<ArrowProps> = ({ onClick }) => (
     className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/60 hover:bg-white/80 rounded-full p-2 shadow-lg"
     aria-label="Previous slide"
   >
-    <ChevronLeft className="h-6 w-6 text-black" />
+    <ChevronLeft className="h-3 w-3 sm:h-6 sm:w-6 text-black" />
   </button>
 );
 
@@ -33,7 +34,7 @@ const CustomRightArrow: React.FC<ArrowProps> = ({ onClick }) => (
     className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/60 hover:bg-white/80 rounded-full p-2 shadow-lg"
     aria-label="Next slide"
   >
-    <ChevronRight className="h-6 w-6 text-black" />
+    <ChevronRight className="h-3 w-3 sm:h-6 sm:w-6 text-black" />
   </button>
 );
 
@@ -64,9 +65,16 @@ const Hero: React.FC<iHeroProps> = ({ data }) => {
         }
         :global(.react-multi-carousel-dot button) {
           background: white !important;
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          margin: 0 4px;
+          padding: 0;
         }
         :global(.react-multi-carousel-dot--active button) {
           background: #8B6529 !important;
+          width: 10px;
+          height: 10px;
         }
       `}</style>
 
@@ -95,21 +103,21 @@ const Hero: React.FC<iHeroProps> = ({ data }) => {
               priority
             />
             <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-              <div className="cl-container text-center text-white px-4">
+              <div className=" text-center text-white px-4">
                 {item.subtitle && (
-                  <div className="text-lg mb-2 font-medium">{item.subtitle}</div>
+                  <div className="text-[1rem] text-lg mb-1 md:mb-2 font-medium">{item.subtitle}</div>
                 )}
                 {item.title && (
-                  <h1 className="text-4xl lg:text-5xl font-bold mb-2">{item.title}</h1>
+                  <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-1 md:mb-2">{item.title}</h1>
                 )}
-                {item.price && <div className="text-xl mb-4">{item.price}</div>}
+                {item.price && <div className="text-sm md:text-xl mb-6 md:mb-4">{item.price}</div>}
                 {item.link && (
-                  <Link
-                    href={item.link}
-                    className="bg-black/80 text-white px-6 py-2 rounded-sm font-semibold inline-flex items-center gap-2 hover:bg-accent transition"
-                  >
-                    View Details
-                    <ChevronRight className="w-4 h-4" />
+                  <Link href={item.link}  className='flex justify-center'>
+                    <CustomButton 
+                      title='View Details'
+                      className='btn'
+                      arrow
+                    />
                   </Link>
                 )}
               </div>

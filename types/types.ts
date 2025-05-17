@@ -2,9 +2,9 @@ export interface iPropertyCardProps {
   image: string
   name: string
   location: string
-  bedrooms: number
-  bathrooms: number
-  area: number
+  bedrooms?: number
+  bathrooms?: number
+  area?: number | null
   areaUnit?: string
 }
 
@@ -35,4 +35,18 @@ export interface iPropertyData {
   images: string[];
   featured: boolean;
   href: string;
+}
+
+export interface iMansion {
+  name : string;
+  subtitle : string;
+  priceUnit : string;
+  price : number | string;
+  DevelopedBy : string;
+  BUA : number | string;
+  plotSize : number | string;
+  bedrooms : number;
+  bathrooms : number;
+  parking : string;
+  images : string[];
 }
