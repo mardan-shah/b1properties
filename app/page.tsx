@@ -6,6 +6,8 @@ import PrivateLisingSection from '@/components/PrivateLisingSection';
 import CustomButton from '@/components/ui/CustomButton';
 import ShowcaseMansion from '@/components/ShowcaseMansion';
 import ParallaxSection from '@/components/ParallaxSection';
+import SoldPropertySection from '@/components/SoldPropertySection';
+import TeamSection from '@/components/TeamSection';
 
 const page = () => {
   const carouselData = [
@@ -92,12 +94,12 @@ const page = () => {
       <FeatruredPropertySection />
       <PrivateLisingSection />
       <div className='w-full p-7.5'>
-        <div className='bg-black h-60 rounded-sm flex justify-center items-center'>
+        <div className='bg-[#1A1A1A] h-60 rounded-sm flex justify-center items-center'>
           <div className='flex flex-col xl:flex-row w-full items-center justify-around'>
             <h2 className='text-white font-bold text-sm lg:text-lg xl:text-xl text-center mb-10 xl:mb-0'>Register your interest and one of our luxury consultants will be in touch with you.</h2>
             <CustomButton 
               title='Find Out Now'
-              className='text-sm lg:text-lg xl:text-xl py-3 lg:py-6 w-40 xl:w-56 bg-gradient-to-tr from-[rgb(102,62,3)] to-[rgb(97,80,56)] rounded-md font-bold'
+              className='text-sm lg:text-lg xl:text-xl py-3 lg:py-6 w-40 xl:w-56 bg-gradient-to-tr from-[rgb(102,62,3)] to-[rgb(97,80,56)] rounded-md'
               arrow
             />
           </div>
@@ -107,6 +109,24 @@ const page = () => {
       <ShowcaseMansion />
 
       <ParallaxSection />
+      <SoldPropertySection />
+      <div className='w-full px-[3px]'>
+        <div className='bg-[#1A1A1A] h-60 md:h-80 rounded-sm flex justify-center items-center'>
+          <div className='flex flex-col xl:flex-row w-full items-center justify-between gap-5 px-20'>
+            <div className='text-white flex flex-col gap-2 md:gap-5'>
+              <h2 className='text-white font-bold text-xl md:text-4xl'>Sell with Us</h2>
+              <h3 className='text-sm md:text-xl'>Shaping Signature Lifestyles | Unmatched Expertise</h3>
+            </div>
+            <CustomButton 
+              title='Explore Our sold Properties'
+              className='text-sm lg:text-lg xl:text-xl py-3 lg:py-6  bg-gradient-to-tr from-[rgb(102,62,3)] to-[rgb(97,80,56)] rounded-md'
+              arrow
+            />
+          </div>
+        </div>
+      </div>
+      <TeamSection />
+
     </>
   );
 };
