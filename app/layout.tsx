@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`font-satoshi font-normal antialiased`}
+        className={`font-lora font-normal antialiased`}
       >
         <NavBar />
         {children}

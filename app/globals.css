@@ -3,6 +3,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/*Font Satoshi*/
 @font-face {
   font-family: 'Satoshi';
   src: url('/fonts/satoshi/Satoshi-Regular.woff2') format('woff2');
@@ -26,9 +27,75 @@
   font-style: normal;
   font-display: swap;
 }
+/*Font Lora*/
+@font-face {
+  font-family: 'Lora';
+  src: url('/fonts/satoshi/Lora-Regular.ttf') format('ttf');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Lora';
+  src: url('/fonts/satoshi/Lora-Medium.ttf') format('ttf');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Lora';
+  src: url('/fonts/satoshi/Lora-SemiBold.ttf') format('ttf');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Lora';
+  src: url('/fonts/satoshi/Lora-Bold.ttf') format('ttf');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/*Font Playfair_Display*/
+@font-face {
+  font-family: 'PlayfairDisplay';
+  src: url('/fonts/satoshi/PlayfairDisplay-Regular.ttf') format('ttf');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PlayfairDisplay';
+  src: url('/fonts/satoshi/PlayfairDisplay-Medium.ttf') format('ttf');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PlayfairDisplay';
+  src: url('/fonts/satoshi/PlayfairDisplay-SemiBold.ttf') format('ttf');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PlayfairDisplay';
+  src: url('/fonts/satoshi/PlayfairDisplay-Bold.ttf') format('ttf');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+
+
+
 
 @theme {
   --font-satoshi: 'Satoshi', sans-serif;
+  --font-playfairDisplay: 'PlayfairDisplay', sans-serif;
+  --font-lora: 'lora', sans-serif;
 }
 
 @theme inline {
@@ -108,7 +175,7 @@
 
 @layer components {
   .heading {
-    @apply text-2xl sm:text-3xl md:text-4xl font-bold text-center my-6;
+    @apply text-2xl sm:text-3xl md:text-4xl text-center my-6 font-playfairDisplay;
   }
   .btn {
     @apply w-[8rem] md:w-[10rem] font-normal;

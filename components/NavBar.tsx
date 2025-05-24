@@ -54,15 +54,15 @@ const NavBar = () => {
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between text-white sm:px-3 md:px-10 
-                   ${scrolled ? 'bg-[#181616f5]' : 'bg-gradient-to-r from-[#181616c5] to-[#241622b9]'} 
-                   backdrop-blur-sm transition-all duration-300 shadow-lg`}>
+        ${scrolled ? 'bg-[#181616f5]' : 'bg-gradient-to-r from-[#181616c5] to-[#241622b9]'} 
+        backdrop-blur-sm transition-all duration-300 shadow-lg font-lora max-h-32`}>
       {/* Logo */}
       <div className="flex-shrink-0">
         <Link href="/" className="block">
           <Image 
             src="/Logo/logo-light.png" 
             alt="Logo" 
-            width={140} 
+            width={120} 
             height={60} 
             className="w-28 sm:w-32 md:w-36 lg:w-40 h-auto transition duration-300 hover:opacity-90" 
             priority 
@@ -71,7 +71,7 @@ const NavBar = () => {
       </div>
 
       {/* Desktop Navigation */}
-      <div className="hidden lg:flex items-center justify-end gap-2 text-xs xl:text-sm font-bold xl:gap-8 lg:px-8 md:px-6 sm:px-4">
+      <div className="hidden lg:flex items-center justify-end gap-2 text-xs xl:text-sm xl:gap-8 lg:px-8 md:px-6 sm:px-4">
         {navLinks.slice(0, 4).map((link) => (
           <Link 
             key={link.label} 
