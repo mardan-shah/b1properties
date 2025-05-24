@@ -10,6 +10,7 @@ import SoldPropertySection from '@/components/SoldPropertySection';
 import TeamSection from '@/components/TeamSection';
 import { carouselData } from '@/components/data';
 
+
 const page = () => {
 
   return (

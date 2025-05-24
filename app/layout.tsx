@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
+import LoadingWrapper from "@/components/LoadingWrapper"
 
 
 
@@ -21,9 +22,11 @@ export default function RootLayout({
       <body
         className={`font-lora font-normal antialiased`}
       >
-        <NavBar />
-        {children}
-        <Footer />
+        <LoadingWrapper>
+          <NavBar />
+          {children}
+          <Footer />
+        </LoadingWrapper>
       </body>
     </html>
   );
