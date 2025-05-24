@@ -1,12 +1,11 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname} from 'next/navigation'
 
 export default function LoadingWrapper({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true)
   const pathname = usePathname()
-  const router = useRouter()
 
   useEffect(() => {
     const handleLoad = () => setIsLoading(false)
