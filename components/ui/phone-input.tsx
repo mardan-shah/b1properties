@@ -39,7 +39,7 @@ export function PhoneInput({ value, onChange, className }: PhoneInputProps) {
         <PopoverTrigger asChild>
           <Button
             variant="outline"
-            className="flex items-center gap-2 rounded-r-none border-r-0 px-3 h-12"
+            className="flex items-center gap-2 rounded-r-none border-r-0 px-3 h-12 hover:bg-black hover:text-white"
             type="button"
           >
             <span className="text-lg">{selectedCountry.flag}</span>
@@ -52,7 +52,7 @@ export function PhoneInput({ value, onChange, className }: PhoneInputProps) {
             {countries.map((country) => (
               <div
                 key={country.code}
-                className="flex cursor-pointer items-center gap-3 px-3 py-2 hover:bg-muted"
+                className="flex cursor-pointer items-center gap-3 px-3 py-2 hover:bg-primary hover:text-white"
                 onClick={() => {
                   setSelectedCountry(country)
                   setIsOpen(false)

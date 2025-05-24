@@ -48,7 +48,7 @@ const PrivateListings = () => {
   const hasMore = visibleCount < exampleProperty.length;
 
   return (
-    <div className="py-10 md:py-50 px-[5px]">
+    <div className="py-10 md:py-50">
       <div className="pb-10">
         <h1 className="heading">Private Listings</h1>
         <h4 className="text-center text-sm -mt-5">Home / Private Listings</h4>

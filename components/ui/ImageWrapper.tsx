@@ -274,7 +274,7 @@ const ImageWrapper: React.FC<ImageWrapperProps> = ({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <div className={`cursor-zoom-in w-full h-full relative group overflow-hidden ${wrapperClassName || ''}`}>
+        <div className={`cursor-pointer w-full h-full relative group overflow-hidden ${wrapperClassName || ''}`}>
           <Image
             src={src}
             alt={alt}

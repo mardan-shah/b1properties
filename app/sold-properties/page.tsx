@@ -1,8 +1,9 @@
 import Hero from '@/components/Hero';
 import { carouselData } from '@/components/data';
 import ImageWrapper from '@/components/ui/ImageWrapper';
-import PrivateListings from '@/components/PrivateListings';
-import AppointmentForm from '@/components/ApointmentForm';
+import SoldPropertySection from '@/components/SoldPropertySection';
+import CustomButton from '@/components/ui/CustomButton';
+import CountUpComponent from '@/components/CountUpComponent';
 
 const Page = () => {
   const CarouselData = [...carouselData].reverse(); // avoid mutation
@@ -10,7 +11,7 @@ const Page = () => {
   return (
     <div>
       <Hero data={CarouselData} />
-      
+      <CountUpComponent />
       <div className='my-10 md:my-24 w-full flex flex-col md:flex-row justify-between px-3.5 max-h-[600px] gap-6'>
         <div className='w-full md:w-1/2 relative aspect-[7/6] max-h-[600px] overflow-hidden rounded-md'>
           <ImageWrapper
@@ -30,12 +31,23 @@ const Page = () => {
             With our ultra-luxury properties, bespoke services, and unparalleled knowledge of the marketplace,
             we will transform your vision into a living masterpiece.
           </p>
+          <CustomButton 
+            title='Sell With Us'
+            className='w-1/3'
+            arrow
+          />
         </div>
       </div>
-
-      <PrivateListings />
-
-      <AppointmentForm />
+      <div className='px-[5px]'>
+        <SoldPropertySection />
+      </div>
+      <div className='px-[5px] py-5 flex justify-between items-center'>
+        <h1 className='heading text-2xl font-bold'>Sell With Us</h1>
+        <CustomButton 
+          title='Contact us'
+          arrow
+        />
+      </div>
     </div>
   );
 };

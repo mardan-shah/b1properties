@@ -3,28 +3,20 @@
 
 import React from "react"
 import CustomButton from "@/components/ui/CustomButton"
+import { Parallax } from 'react-parallax'
 
 const ParallaxSection = () => {
   return (
-    <section className=" h-[90vh] w-full overflow-hidden">
-      <div className="relative h-[90vh] w-full">
-        <div
-          className="absolute inset-0 bg-center bg-cover bg-fixed"
-          style={{
-            backgroundImage: `
-              linear-gradient(
-                to bottom,
-                rgba(0,0,0,0.1) 0%,
-                rgba(0,0,0,0.3) 30%,
-                rgba(0,0,0,0.6) 80%,
-                rgba(0,0,0,0.8) 100%
-              ),
-              url('/exclusive/Mansion Al Barari/images/15.webp')
-            `,
-          }}
-        />
-
-        <div className="relative z-10 flex flex-col gap-3 md:gap-5 justify-center items-center h-full px-6 text-white text-center">
+    <Parallax
+      blur={{ min: -15, max: 15 }}
+      bgImage="/exclusive/Mansion Al Barari/images/15.webp"
+      bgImageAlt="Luxury Mansion"
+      strength={500}
+      className="h-[90vh]"
+    >
+      <section className="h-[90vh] w-full flex flex-col justify-center items-center text-center px-6 text-white">
+        <div className="bg-black/40 w-full h-full absolute inset-0 z-[1]" />
+        <div className="relative z-[2] flex flex-col gap-3 md:gap-5 items-center">
           <h1 className="text-4xl font-bold drop-shadow-lg">
             Discover a Place You&apos;ll Love To Live
           </h1>
@@ -34,10 +26,11 @@ const ParallaxSection = () => {
           <CustomButton 
             title="Discover Investment Opportunities"
             arrow
+            className="w-1/2"
           />
         </div>
-      </div>
-    </section>
+      </section>
+    </Parallax>
   )
 }
 

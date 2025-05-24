@@ -17,9 +17,9 @@ const NavBar = () => {
   const navLinks = [
     { href: "/private-listings", label: "Private Listings" },
     { href: "/new-opportunities", label: "New Opportunities" },
-    { href: "/developments", label: "Sold Properties" },
-    { href: "/sold", label: "Find An Agent" },
-    { href: "/about", label: "Book Appointment" },
+    { href: "/sold-properties", label: "Sold Properties" },
+    { href: "/agents", label: "Find An Agent" },
+    { href: "/booking", label: "Book Appointment" },
   ]
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -106,7 +106,7 @@ const NavBar = () => {
         </DropdownMenu>
 
         {/* Book Appointment */}
-        <Link href="/about" className="group relative py-2 tracking-wide hover:text-gray-200 transition-colors duration-300">
+        <Link href="/booking" className="group relative py-2 tracking-wide hover:text-gray-200 transition-colors duration-300">
           Book Appointment
           <span
             className="block transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out h-0.5 bg-white absolute bottom-0 left-0 right-0"
@@ -181,7 +181,7 @@ const NavBar = () => {
 
           {/* Book Appointment */}
           <Link
-            href="/about"
+            href="/booking"
             className="text-white text-sm py-2 border-b border-gray-700 hover:text-gray-300 transition-colors"
             onClick={() => setIsMobileMenuOpen(false)}
           >

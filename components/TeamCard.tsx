@@ -11,7 +11,7 @@ interface TeamMemberProps {
 
 const TeamCard = ({ name, photo, languages, focusArea }: TeamMemberProps) => {
   return (
-    <Card className="flex flex-col items-center border min-w-sm 2xl:min-w-md hover:border-black text-center rounded-2xl shadow-md overflow-hidden">
+    <Card className="flex flex-col items-center gap-[5px] border min-w-[300px] lg:min-w-[400px] hover:border-black text-center rounded-2xl shadow-md overflow-hidden">
       <div className="relative w-full h-60">
         <Image
           src={photo}
