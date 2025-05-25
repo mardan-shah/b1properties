@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { usePathname} from 'next/navigation'
+import Image from 'next/image'
 
 export default function LoadingWrapper({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true)
@@ -24,7 +25,7 @@ export default function LoadingWrapper({ children }: { children: React.ReactNode
 
     const timeout = setTimeout(() => {
       setIsLoading(false)
-    }, 700) // give time for transition + image loading if needed
+    }, 1000) // give time for transition + image loading if needed
 
     return () => clearTimeout(timeout)
   }, [pathname])
@@ -33,7 +34,7 @@ export default function LoadingWrapper({ children }: { children: React.ReactNode
     <>
       {isLoading && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-white transition-opacity duration-500">
-          <div className="text-2xl font-semibold animate-pulse">Loading...</div>
+          <div className="text-2xl font-semibold animate-pulse"><Image src='/Logo/logo-black.png' alt='Logo' width={200} height={200}/></div>
         </div>
       )}
       <div className={`${isLoading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-500`}>
