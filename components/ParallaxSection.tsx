@@ -8,10 +8,10 @@ import { Parallax } from 'react-parallax'
 const ParallaxSection = () => {
   return (
     <Parallax
-      blur={{ min: -15, max: 15 }}
+      blur={{ min:-10, max: 10 }}
       bgImage="/exclusive/Mansion Al Barari/images/15.webp"
       bgImageAlt="Luxury Mansion"
-      strength={500}
+      strength={900}
       className="h-[90vh]"
     >
       <section className="h-[90vh] w-full flex flex-col justify-center items-center text-center px-6 text-white">
@@ -26,7 +26,7 @@ const ParallaxSection = () => {
           <CustomButton 
             title="Discover Investment Opportunities"
             arrow
-            className="w-1/2"
+            className="w-auto md:w-1/2"
           />
         </div>
       </section>

@@ -3,7 +3,7 @@
 import React, {useState} from 'react'
 import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
-import { exampleProperty } from './data';
+import { exampleProperty } from '../lib/data';
 
 import LuxuryPropertyCard from '@/components/LuxuryPropertyCard'
 
@@ -47,7 +47,7 @@ const PrivateListingSection = () => {
   })
 
   return (
-    <section className="py-10 md:py-30 px-[3px]">
+    <section className="py-10 md:py-30 mx-auto rounded-md overflow-hidden">
       <h2 className="heading">Discover Our Private Listings</h2>
 
       <div ref={sliderRef} className="keen-slider mt-10">

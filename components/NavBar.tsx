@@ -53,9 +53,9 @@ const NavBar = () => {
   }, [isMobileMenuOpen])
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between text-white sm:px-3 md:px-10 
+    <nav className={`sticky top-0 left-0 right-0 z-50 flex items-center justify-between text-white sm:px-3 md:px-10 
         ${scrolled ? 'bg-[#181616f5]' : 'bg-gradient-to-r from-[#181616c5] to-[#241622b9]'} 
-        backdrop-blur-sm transition-all duration-300 shadow-lg font-lora max-h-32`}>
+        backdrop-blur-sm transition-all duration-300 shadow-lg font-lora max-h-28`}>
       {/* Logo */}
       <div className="flex-shrink-0">
         <Link href="/" className="block">
@@ -71,7 +71,7 @@ const NavBar = () => {
       </div>
 
       {/* Desktop Navigation */}
-      <div className="hidden lg:flex items-center justify-end gap-2 text-xs xl:text-sm xl:gap-8 lg:px-8 md:px-6 sm:px-4">
+      <div className="hidden xl:flex items-center justify-end gap-2 text-xs xl:text-sm xl:gap-8 lg:px-8 md:px-6 sm:px-4">
         {navLinks.slice(0, 4).map((link) => (
           <Link 
             key={link.label} 
@@ -131,7 +131,7 @@ const NavBar = () => {
       {/* Mobile Menu Toggle */}
       <button
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        className="lg:hidden text-white focus:outline-none p-2 menu-button"
+        className="xl:hidden text-white focus:outline-none p-2 menu-button"
         aria-label="Toggle menu"
       >
         {isMobileMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
@@ -139,7 +139,7 @@ const NavBar = () => {
 
       {/* Mobile Menu Dropdown */}
       <div
-        className={`lg:hidden fixed top-[5.5rem] left-0 right-0 ${scrolled ? 'bg-[#181616f5]' : 'bg-gradient-to-r from-[#181616d6] to-[#241622b9]'} 
+        className={`xl:hidden fixed top-[5.5rem] left-0 right-0 ${scrolled ? 'bg-[#181616f5]' : 'bg-gradient-to-r from-[#181616d6] to-[#241622b9]'} 
                   backdrop-blur-sm shadow-xl z-50 max-h-[calc(100vh-60px)] overflow-y-auto 
                   transition-all duration-300 ease-in-out mobile-menu
                   ${isMobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'}`}

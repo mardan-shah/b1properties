@@ -73,7 +73,7 @@ export default function AppointmentForm({title='Schedule Your Appointment', subt
   }
 
   return (
-    <div className="w-full max-w-2xl mx-auto px-4 mb-10 overflow-x-hidden">
+    <div className="w-full md:max-w-[80%] mx-auto px-4 mb-10 overflow-x-hidden">
       <div className="text-center mb-8">
         <h1 className="text-3xl font-normal mb-2">{title}</h1>
         <p className="text-gray-600">{subtitle}</p>

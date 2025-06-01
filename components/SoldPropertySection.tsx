@@ -71,7 +71,7 @@ const SoldCard = ({ data }: prop) => {
 
 const SoldPropertySection = () => {
   return (
-    <section className="px-[2px] mb-10 pt-10 md:mt-20">
+    <section className="mx-auto mb-10 pt-10 md:mt-20">
       <h1 className="heading">Sold Properties</h1>
       <h3 className="text-lg text-muted-foreground mb-6 text-center">
         Shaping Signature Lifestyles | Unmatched Expertise

@@ -23,7 +23,7 @@ interface Props{
 
 const TeamCard = ({ data, showButton=false }: Props) => {
   return (
-    <Card className="flex flex-col items-center gap-[5px] border min-w-[300px] lg:min-w-[400px] hover:border-black text-center rounded-2xl shadow-md overflow-hidden">
+    <Card className="flex flex-col items-center gap-[5px] border w-full hover:border-black text-center rounded-2xl shadow-md overflow-hidden">
       <div className="relative w-full h-60">
         <Image
           src={data.photo}
@@ -35,14 +35,14 @@ const TeamCard = ({ data, showButton=false }: Props) => {
       </div>
       <CardContent className="w-full">
         <h2 className="text-lg font-semibold mb-2">{data.name}</h2>
-        <div className="text-sm text-muted-foreground w-full px-3">
-          <div className="flex justify-between w-full border-t pt-2">
-            <span className="font-medium text-gray-500">Languages</span>
-            <span>{data.languages.join(' | ')}</span>
+        <div className="text-sm text-muted-foreground w-full lg:px-3">
+          <div className="flex  text-xs lg:text-base justify-between w-full min-h-18 items-center border-t pt-2">
+            <span className="font-medium text-gray-500 text-left w-1/3">Languages</span>
+            <span className='text-right'>{data.languages.join(' | ')}</span>
           </div>
-          <div className="flex justify-between border-t pt-2 mt-2">
-            <span className="font-medium text-gray-500">Focus Area</span>
-            <span>{data.focusArea.join(' | ')}</span>
+          <div className="flex text-xs lg:text-base justify-between items-center border-t pt-2 mt-2 min-h-18" >
+            <span className="font-medium text-gray-500 text-left w-1/3">Focus Area</span>
+            <span className='text-right'>{data.focusArea.join(' | ')}</span>
           </div>
         </div>
       </CardContent>

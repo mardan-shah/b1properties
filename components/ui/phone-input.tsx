@@ -42,7 +42,7 @@ export function PhoneInput({ value, onChange, className }: PhoneInputProps) {
             className="flex items-center gap-2 rounded-r-none border-r-0 px-3 h-12 hover:bg-black hover:text-white"
             type="button"
           >
-            <span className="text-lg">{selectedCountry.flag}</span>
+            <span className="text-sm font-medium">{selectedCountry.flag}</span>
             <span className="text-sm font-medium">{selectedCountry.code}</span>
             <ChevronDown className="h-3 w-3 opacity-50" />
           </Button>

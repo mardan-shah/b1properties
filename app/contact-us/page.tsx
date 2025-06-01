@@ -5,7 +5,7 @@ import AppointmentForm from '@/components/ApointmentForm'
 
 const Page = () => {
   return (
-    <div>
+    <div className=''>
       <div className='bg-black h-20'>
       </div>
       <div className=' h-[calc(100vh-5rem)] w-full bg-black relative'>

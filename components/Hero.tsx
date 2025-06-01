@@ -40,7 +40,7 @@ const CustomRightArrow = memo(({ onClick }: ArrowProps) => (
 ));
 
 const CarouselItem = memo(({ item, index }: { item: iCarouselItemData; index: number }) => (
-  <div key={index} className="relative w-full h-screen">
+  <div key={index} className="relative h-[50vh] sm:h-[60vh] md:h-[75vh] lg:h-screen w-full">
     <Image
       src={item.image}
       alt={item.title || `Carousel image ${index + 1}`}

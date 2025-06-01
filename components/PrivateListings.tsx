@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import LuxuryPropertyCard from '@/components/LuxuryPropertyCard';
-import { exampleProperty } from './data';
+import { exampleProperty } from '../lib/data';
 import CustomButton from './ui/CustomButton';
+import PrivateListingCard from './PrivateListingCard';
 
 const MAX_ROWS = 3;
 const ITEMS_PER_ROW_SM = 1;
@@ -57,7 +57,7 @@ const PrivateListings = () => {
       <div className="flex flex-wrap gap-[5px] w-full justify-center">
         {propertiesToShow.map((property, i) => (
           <div key={i} className="w-full md:w-[48%] lg:w-[32%]">
-            <LuxuryPropertyCard property={property} />
+            <PrivateListingCard property={property} />
           </div>
         ))}
       </div>

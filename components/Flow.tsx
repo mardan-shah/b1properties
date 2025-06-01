@@ -45,7 +45,7 @@ const Flow = () => {
             height={125}
           />
           <h1 className='text-center text-xl font-bold hover:text-accent'>{i+1}.{data.title}</h1>
-          <p className='text-sm text-muted-foreground flex justify-center items-center'>{data.Subtitle}</p>
+          <p className='text-sm text-muted-foreground flex justify-center items-center text-center'>{data.Subtitle}</p>
         </div>
       ))}
     </div>
