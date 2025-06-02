@@ -6,15 +6,13 @@ import { CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { teamMembers } from "@/lib/data"
 import CustomButton from "@/components/ui/CustomButton"
-interface Props {
-  params: { id: string }
-}
 
-const Page = ({ params }: Props) => {
-  const property = exampleProperty.find((p) => p.id === params.id)
-  const teamMember= teamMembers.find((p)=>p.name === property?.assignedAgent)
 
+const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
+  const { id } = await params
+  const property = exampleProperty.find((p) => p.id === id)
   if (!property) return notFound()
+  const teamMember = teamMembers.find((p) => p.name === property.assignedAgent)
 
   return (
     <div className="w-full max-w-[98%] lg:max-w-[95%] mx-auto font-lora">

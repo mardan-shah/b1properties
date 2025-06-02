@@ -6,10 +6,10 @@ import { MapPin, Bed, Bath, SquaresSubtract } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useState, useEffect, useRef } from "react"
-import type { iPropertyData } from "@/types/types"
+import type { IPropertyData } from "@/types/types"
 
 interface PropertyCardProps {
-  property: iPropertyData
+  property: IPropertyData
 }
 
 export default function LuxuryPropertyCard({ property }: PropertyCardProps) {
@@ -106,7 +106,7 @@ export default function LuxuryPropertyCard({ property }: PropertyCardProps) {
 
             <div className="flex items-center gap-1 ">
               <SquaresSubtract className="h-5 w-5 text-muted-foreground" />
-              <span className=" text-muted-foreground font-medium leading-none whitespace-nowrap"> | {property.squareFootage}</span>
+              <span className=" text-muted-foreground font-medium leading-none whitespace-nowrap"> | {property.plotSize}</span>
             </div>
 
             {property.price ? (
