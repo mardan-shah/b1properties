@@ -2,11 +2,14 @@
 
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { MapPin, Bed, Bath, SquaresSubtract } from "lucide-react"
+import { MapPin, SquaresSubtract } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useState, useEffect, useRef } from "react"
 import type { IPropertyData } from "@/types/types"
+import { Button } from "./ui/button"
+import { FaWhatsapp} from 'react-icons/fa'
+import { FiPhone } from "react-icons/fi";
 
 interface PropertyCardProps {
   property: IPropertyData
@@ -18,7 +21,17 @@ export default function NewOpportunityCard({ property }: PropertyCardProps) {
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
   // Format price with commas
-  const formattedPrice = property.price.toLocaleString()
+    const formatPrice = (price: number, currency: string = 'AED'): string => {
+    if (price >= 1_000_000) {
+      return `${(price / 1_000_000).toFixed(1)}M ${currency}`;
+    } else if (price >= 1_000) {
+      return `${(price / 1_000).toFixed(1)}K ${currency}`;
+    }
+    return `${currency} ${price}`;
+  };
+  const formattedPrice = formatPrice(property.price, property.currency);
+
+
 
   // Handle image carousel on hover
   useEffect(() => {
@@ -85,38 +98,38 @@ export default function NewOpportunityCard({ property }: PropertyCardProps) {
 
         {/* Property Details */}
         <CardContent className="px-4">
-          <div className="mb-1">
-            <h3 className="text-xl font-semibold tracking-tight line-clamp-1">{property.title}</h3>
-            <div className="mt-1 flex items-center gap-1 text-muted-foreground  border-b pb-2">
-              <MapPin className="h-4 w-4 flex-shrink-0" />
+          <div className="mb-1 space-y-3 border-b-2 border-dashed pb-4 botder-muted-foreground">
+            <div className="flex items-center justify-between">
+              <h3 className="text-xl font-medium tracking-tight line-clamp-1">{property.title}</h3>
+              {property.price ? (
+                  <div className="flex items-center gap-1 ">
+                    <span className="text-base font-semibold whitespace-nowrap leading-none">{formattedPrice}</span>
+                  </div>
+              ):(
+                  <span className=" text-muted-foreground font-medium leading-none whitespace-nowrap">Price Upon Request</span>
+              )}
+            </div>
+            <div className="mt-1 flex items-center gap-1 text-muted-foreground">
+              <MapPin className="h-5 w-5 flex-shrink-0 text-black" />
               <span className="text-sm">{property.location}</span>
             </div>
+
+            <div className="flex items-center gap-1 ">
+              <SquaresSubtract className="h-5 w-5 text-black" />
+              <span className=" text-muted-foreground font-medium leading-none whitespace-nowrap">  {property.handover}</span>
+            </div>
           </div>
+          
 
-          <div className="flex justify-between items-center pt-2 text-sm sm:text-[16px]">
-            <div className="flex items-center gap-1 ">
-              <Bed className="h-5 w-5 text-muted-foreground" />
-              <span className=" text-muted-foreground font-medium leading-none"> | {property.bedrooms}</span>
-            </div>
-
-            <div className="flex items-center gap-1 ">
-              <Bath className="h-5 w-5 text-muted-foreground" />
-              <span className=" text-muted-foreground font-medium leading-none"> | {property.bathrooms}</span>
-            </div>
-
-            <div className="flex items-center gap-1 ">
-              <SquaresSubtract className="h-5 w-5 text-muted-foreground" />
-              <span className=" text-muted-foreground font-medium leading-none whitespace-nowrap"> | {property.plotSize}</span>
-            </div>
-
-            {property.price ? (
-                <div className="flex items-center gap-1 ">
-                  <span className="text-[10px] sm:text-xs text-muted-foreground leading-none">{property.currency}</span>
-                  <span className=" text-muted-foreground font-medium whitespace-nowrap leading-none">{formattedPrice}</span>
-                </div>
-            ):(
-                <span className=" text-muted-foreground font-medium leading-none whitespace-nowrap">Price Upon Request</span>
-            )}
+          <div className="flex justify-center items-center w-full gap-4 py-2">
+            <Button className="w-1/2 text-sm flex justify-center hover:bg-accent hover:text-white">
+              <span>Call</span>
+              <FiPhone size={20} />
+            </Button>
+            <Button className="w-1/2 flex justify-center text-sm hover:bg-accent hover:text-white">
+              <span>WhatsApp</span>
+              <FaWhatsapp size={20} />
+            </Button>
           </div>
         </CardContent>
       </Card>

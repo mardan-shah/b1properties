@@ -27,10 +27,10 @@ const MansionHero = ({ data }: prop) => {
       <div className='flex flex-col md:flex-row justify-between font-medium gap-2'>
         <div className='text-left space-y-1'>
           <h1 className='text-lg md:text-2xl'>{data.title}</h1>
-          <h5 className='text-xs md:text-sm text-gray-500'>{data.subtitle}</h5>
+          <h5 className='text-xs md:text-sm text-muted-foreground'>{data.subtitle}</h5>
         </div>
         <div className='md:text-right space-y-1'>
-          <h5 className='text-xs md:text-sm text-gray-500'>Price</h5>
+          <h5 className='text-xs md:text-sm text-muted-foreground'>Price</h5>
           <h1 className='text-2xl'>{data.currency} {data.price}</h1>
         </div>
       </div>
@@ -79,7 +79,7 @@ const MansionHero = ({ data }: prop) => {
               onViewerClose={close}
             />
             {hasExtras && (
-              <div className="absolute inset-0 bg-black/20 backdrop-blur-sm flex items-center justify-center text-white text-2xl font-bold z-10">
+              <div className="absolute inset-0 bg-black/20 backdrop-blur-xs flex items-center justify-center text-white text-4xl font-bold z-10">
                 +{extraCount}
               </div>
             )}

@@ -18,7 +18,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
 }) => {
   return (
     <Button
-      className={clsx("flex items-center gap-2 hover:bg-accent", className)}
+      className={clsx("flex items-center gap-2 bg-black hover:bg-accent", className)}
       onClick={onClick}
     >
       <span>{title}</span>

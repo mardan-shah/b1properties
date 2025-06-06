@@ -1,5 +1,6 @@
 import { IPropertyData, iTeamMember } from "@/types/types";
 
+
  // eslint-disable-next-line @typescript-eslint/no-unused-vars
  interface icarousalData {
   image:string;
@@ -75,6 +76,7 @@ export const exampleProperty: IPropertyData[] = [
     heading: 'Where Timeless Elegance Meets Modern Luxury: The Bvlgari Mansion Of Bvlgari Resorts & Hotel',
     title: "Custom-Built Signature Villa",
     subtitle: "Bvlgari Resort & Residences",
+    district: "Jumeirah Bay Island",
     location: "Jumeirah Bay Island, Dubai",
     developedBy: "Developed By Meraas",
     bua: "12,837",
@@ -85,6 +87,8 @@ export const exampleProperty: IPropertyData[] = [
     parking: "8 Car Parking",
     plotSize: 15190.3,
     plotSizeUnit: "Sq.Ft",
+    heroImage:"/exclusive/j20/images/0.png",
+    handover: "Q4 2025",
     images: [
       "/exclusive/j20/images/0.png",
       "/exclusive/j20/images/bath1.webp",
@@ -94,8 +98,12 @@ export const exampleProperty: IPropertyData[] = [
       "/exclusive/j20/images/gym.webp"
     ],
     featured: true,
-    href: "/private-listings/signature-villa-j20",
     tag: "private-listings",
+    href: `/private-listings/signature-villa-j20`,
+    paymentPlan:"80/20",
+    downPayment: "20%",
+    duringConstructionPayment: "60%",
+    handoverPayment: "20%",
     description: [
        "<strong>Step into a world of unparalleled sophistication with this bespoke ultra-luxury mansion, one of the most exclusive properties on the market today.</strong>",
       "Meticulously crafted to perfection, it seamlessly blends elegance, innovation, and world-class design to redefine luxury living in Dubai.",
@@ -140,6 +148,7 @@ export const exampleProperty: IPropertyData[] = [
     id: "ultra-lux-villa-g11",
     title: "Ultra-Modern Marina Villa",
     heading: 'Where Timeless Elegance Meets Modern Luxury: The Bvlgari Mansion Of Bvlgari Resorts & Hotel',
+    district: "Dubai Marina",
     subtitle: "Bespoke Luxury Living",
     location: "Dubai Marina, Dubai",
     developedBy: "Developed By DAMAC",
@@ -149,8 +158,10 @@ export const exampleProperty: IPropertyData[] = [
     bedrooms: 6,
     bathrooms: 8,
     parking: "6 Car Parking",
+    handover: "Q4 2025",
     plotSize: 11800,
     plotSizeUnit: "Sq.Ft",
+    heroImage:"/exclusive/g11/images/home.png",
     images: [
       "/exclusive/g11/images/home.png",
       "/exclusive/g11/images/1.webp",
@@ -161,7 +172,11 @@ export const exampleProperty: IPropertyData[] = [
     ],
     featured: false,
     href: "/private-listings/ultra-lux-villa-g11",
-    tag: "luxury",
+    tag: "private-listings",
+    paymentPlan:"80/20",
+    downPayment:"20%",
+    duringConstructionPayment:"60%",
+    handoverPayment:"20%",
     description: [
        "<strong>Step into a world of unparalleled sophistication with this bespoke ultra-luxury mansion, one of the most exclusive properties on the market today.</strong>",
       "Meticulously crafted to perfection, it seamlessly blends elegance, innovation, and world-class design to redefine luxury living in Dubai.",
@@ -197,6 +212,212 @@ export const exampleProperty: IPropertyData[] = [
     id: "zen-retreat-a9",
     title: "Zen Retreat Villa",
     heading: 'Where Timeless Elegance Meets Modern Luxury: The Bvlgari Mansion Of Bvlgari Resorts & Hotel',
+    district: "Al Barari",
+    subtitle: "Tranquility in Design",
+    location: "Al Barari, Dubai",
+    developedBy: "Developed By Zaya",
+    bua: "9,850",
+    price: 95_000_000,
+    currency: "AED",
+    bedrooms: 5,
+    bathrooms: 6,
+    parking: "5 Car Parking",
+    handover: "Q4 2025",
+
+    plotSize: 13500,
+    plotSizeUnit: "Sq.Ft",
+    heroImage:"/exclusive/g11/images/home.png",
+    images: [
+      "/exclusive/g11/images/home.png",
+      "/exclusive/g11/images/1.webp",
+      "/exclusive/g11/images/2.webp",
+      "/exclusive/g11/images/3.webp",
+      "/exclusive/g11/images/4.webp",
+      "/exclusive/g11/images/5.webp",
+    ],
+    featured: false,
+    href: "/private-listings/zen-retreat-a9",
+    tag: "private-listings",
+    paymentPlan:"80/20",
+    downPayment:"20%",
+    duringConstructionPayment:"60%",
+    handoverPayment:"20%",
+    description: [
+      `<p><strong>Nature meets luxury in this serene Al Barari villa designed for balance and beauty.</strong></p>`,
+      `<p>Featuring flowing water features, indoor-outdoor transitions, and soft natural materials. This is Dubai’s answer to barefoot luxury.</p>`
+    ],
+    highlight: [
+      { title: "Downtown Dubai", subtitle: "Distance: 20 Mins" },
+      { title: "Dubai Hills Mall", subtitle: "Distance: 15 Mins" }
+    ],
+    qrImg: "/images/code.png",
+    youTubeLink: "https://www.youtube.com/embed/goFsqVqQ8H8?si=wQKXGMLtwpQcEmve",
+    designer: [
+      { title: "Lighting", subtitle: "Flos" },
+      { title: "Furniture", subtitle: "Poliform" },
+      { title: "Appliances", subtitle: "Gaggenau" }
+    ],
+    features: [
+      {
+        category: "Interior Details",
+        items: ["Courtyard Garden", "Open Living Areas", "Home Spa"]
+      },
+      {
+        category: "Outdoor Details",
+        items: ["Zen Garden", "Natural Pool"]
+      }
+    ],
+    assignedAgent: "Adelina"
+  },
+
+   {
+    id: "signature-villa-j20",
+    heading: 'Where Timeless Elegance Meets Modern Luxury: The Bvlgari Mansion Of Bvlgari Resorts & Hotel',
+    district: "Jumeirah Bay Island",
+    title: "Custom-Built Signature Villa",
+    subtitle: "Bvlgari Resort & Residences",
+    location: "Jumeirah Bay Island, Dubai",
+    developedBy: "Developed By Meraas",
+    bua: "12,837",
+    price: 250_000_000,
+    currency: "AED",
+    bedrooms: 5,
+    bathrooms: 7,
+    parking: "8 Car Parking",
+    plotSize: 15190.3,
+    plotSizeUnit: "Sq.Ft",
+    heroImage:"/exclusive/j20/images/0.png",
+    images: [
+      "/exclusive/j20/images/0.png",
+      "/exclusive/j20/images/bath1.webp",
+      "/exclusive/j20/images/bed 1.webp",
+      "/exclusive/j20/images/cinema.webp",
+      "/exclusive/j20/images/dining formal.webp",
+      "/exclusive/j20/images/gym.webp",
+      "/exclusive/j20/images/0.png",
+      "/exclusive/j20/images/bath1.webp",
+      "/exclusive/j20/images/bed 1.webp",
+      "/exclusive/j20/images/cinema.webp",
+      "/exclusive/j20/images/dining formal.webp",
+      "/exclusive/j20/images/gym.webp"
+    ],
+    featured: true,
+    tag: "new-opportunities",
+    href: `/new-opportunities/signature-villa-j20`,
+    handover: "Q4 2025",
+    paymentPlan:"80/20",
+    downPayment: "20%",
+    duringConstructionPayment: "60%",
+    handoverPayment: "20%",
+    description: [
+       "<strong>Step into a world of unparalleled sophistication with this bespoke ultra-luxury mansion, one of the most exclusive properties on the market today.</strong>",
+      "Meticulously crafted to perfection, it seamlessly blends elegance, innovation, and world-class design to redefine luxury living in Dubai.",
+      "This house is set within the ultra-luxurious <strong>Bvlgari Resort & Residences</strong> and forms part of a limited collection—just 15 exclusive mansions set on 1.8 million square meters of Jumeirah Bay. With breathtaking sea views across the glittering Dubai skyline, this iconic <strong>Burj Khalifa</strong> makes every vista a masterpiece.",
+      "Glass doors from floor to ceiling blur the boundary between indoor and outdoor living, framing breathtaking views inside your residence overlooking your private garden and infinity pool. The generous skylight gives an overflow of natural light in the interiors, creating an interior effortlessly harmonious with architecture and nature.",
+      "<strong>This is far more than just a house; this is a statement of luxury within one of the world's most exclusive destinations.</strong>"
+    ],
+    highlight: [
+      { title: "Burj Al Arab", subtitle: "Distance: 15 Mins" },
+      { title: "Citywalk", subtitle: "Distance: 10 Mins" },
+      { title: "Dubai Airport", subtitle: "Distance: 15 Mins" }
+    ],
+    qrImg: "/images/code.png",
+    youTubeLink: "https://www.youtube.com/embed/goFsqVqQ8H8?si=wQKXGMLtwpQcEmve",
+    designer: [
+      { title: "Furniture", subtitle: "Visionnaire" },
+      { title: "Showpieces", subtitle: "Hermès, Baccarat" },
+      { title: "Kitchen Appliances", subtitle: "Miele" },
+      { title: "Speakers", subtitle: "Bang & Olufsen" }
+    ],
+    features: [
+      {
+        category: "Interior Details",
+        items: ["Indoor Cinema", "Walk-In Wardrobes", "Gym"]
+      },
+      {
+        category: "Outdoor Details",
+        items: ["Beach Front", "Private Pool"]
+      },
+      {
+        category: "Other Features",
+        items: ["Car Parking", "Spa"]
+      },
+      {
+        category: "Utilities",
+        items: ["Central A/C"]
+      }
+    ],
+    assignedAgent: "Adelina"
+  },
+  {
+    id: "ultra-lux-villa-g11",
+    title: "Ultra-Modern Marina Villa",
+    heading: 'Where Timeless Elegance Meets Modern Luxury: The Bvlgari Mansion Of Bvlgari Resorts & Hotel',
+    district: "Dubai Marina",
+    subtitle: "Bespoke Luxury Living",
+    location: "Dubai Marina, Dubai",
+    developedBy: "Developed By DAMAC",
+    bua: "11,000",
+    price: 185_000_000,
+    currency: "AED",
+    bedrooms: 6,
+    bathrooms: 8,
+    parking: "6 Car Parking",
+    plotSize: 11800,
+    plotSizeUnit: "Sq.Ft",
+    heroImage:"/exclusive/g11/images/home.png",
+    images: [
+      "/exclusive/g11/images/home.png",
+      "/exclusive/g11/images/1.webp",
+      "/exclusive/g11/images/2.webp",
+      "/exclusive/g11/images/3.webp",
+      "/exclusive/g11/images/4.webp",
+      "/exclusive/g11/images/5.webp"
+    ],
+    featured: false,
+    href: "/new-opportunities/ultra-lux-villa-g11",
+    tag: "new-opportunities",
+    handover: "Q4 2025",
+    paymentPlan:"80/20",
+    downPayment:"20%",
+    duringConstructionPayment:"60%",
+    handoverPayment:"20%",
+    description: [
+       "<strong>Step into a world of unparalleled sophistication with this bespoke ultra-luxury mansion, one of the most exclusive properties on the market today.</strong>",
+      "Meticulously crafted to perfection, it seamlessly blends elegance, innovation, and world-class design to redefine luxury living in Dubai.",
+      "This house is set within the ultra-luxurious <strong>Bvlgari Resort & Residences</strong> and forms part of a limited collection—just 15 exclusive mansions set on 1.8 million square meters of Jumeirah Bay. With breathtaking sea views across the glittering Dubai skyline, this iconic <strong>Burj Khalifa</strong> makes every vista a masterpiece.",
+      "Glass doors from floor to ceiling blur the boundary between indoor and outdoor living, framing breathtaking views inside your residence overlooking your private garden and infinity pool. The generous skylight gives an overflow of natural light in the interiors, creating an interior effortlessly harmonious with architecture and nature.",
+      "<strong>This is far more than just a house; this is a statement of luxury within one of the world's most exclusive destinations.</strong>"
+    ],
+    highlight: [
+      { title: "Dubai Marina Mall", subtitle: "Distance: 5 Mins" },
+      { title: "JBR Beach", subtitle: "Distance: 8 Mins" },
+      { title: "Palm Jumeirah", subtitle: "Distance: 10 Mins" }
+    ],
+    qrImg: "/images/code.png",
+    youTubeLink: "https://www.youtube.com/embed/goFsqVqQ8H8?si=wQKXGMLtwpQcEmve",
+    designer: [
+      { title: "Furniture", subtitle: "Minotti" },
+      { title: "Kitchen", subtitle: "Poggenpohl" },
+      { title: "Lighting", subtitle: "Tom Dixon" }
+    ],
+    features: [
+      {
+        category: "Interior Details",
+        items: ["Private Elevator", "Formal Dining", "Home Office"]
+      },
+      {
+        category: "Outdoor Details",
+        items: ["Infinity Pool", "Sky Terrace"]
+      }
+    ],
+    assignedAgent: "Adelina"
+  },
+  {
+    id: "zen-retreat-a9",
+    title: "Zen Retreat Villa",
+    heading: 'Where Timeless Elegance Meets Modern Luxury: The Bvlgari Mansion Of Bvlgari Resorts & Hotel',
+    district: "Al Barari",
     subtitle: "Tranquility in Design",
     location: "Al Barari, Dubai",
     developedBy: "Developed By Zaya",
@@ -208,6 +429,7 @@ export const exampleProperty: IPropertyData[] = [
     parking: "5 Car Parking",
     plotSize: 13500,
     plotSizeUnit: "Sq.Ft",
+    heroImage:"/exclusive/g11/images/home.png",
     images: [
       "/exclusive/g11/images/home.png",
       "/exclusive/g11/images/1.webp",
@@ -217,8 +439,13 @@ export const exampleProperty: IPropertyData[] = [
       "/exclusive/g11/images/5.webp",
     ],
     featured: false,
-    href: "/private-listings/zen-retreat-a9",
-    tag: "exclusive",
+    href: "/new-opportunities/zen-retreat-a9",
+    tag: "new-opportunities",
+    handover: "Q4 2025",
+    paymentPlan:"80/20",
+    downPayment:"20%",
+    duringConstructionPayment:"60%",
+    handoverPayment:"20%",
     description: [
       `<p><strong>Nature meets luxury in this serene Al Barari villa designed for balance and beauty.</strong></p>`,
       `<p>Featuring flowing water features, indoor-outdoor transitions, and soft natural materials. This is Dubai’s answer to barefoot luxury.</p>`

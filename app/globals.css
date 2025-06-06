@@ -211,3 +211,46 @@
 html {
   scroll-behavior: smooth;
 }
+
+
+/* In your global CSS file (e.g., globals.css) */
+
+.parallax-container {
+  perspective: 1px;
+  height: 90vh; /* Match your component's height */
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
+}
+
+.parallax-background {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1; /* Place it behind the content */
+
+  /* The magic for the smooth parallax effect */
+  transform: translateZ(-1px) scale(2);
+  
+  /* Ensure the background image covers the area */
+  background-size: cover;
+  background-position: center;
+}
+
+
+/* In your global CSS file (e.g., globals.css) */
+
+.fixed-background-section {
+  /* Set the height and establish a scrolling context */
+  height: 90vh; /* Or any height you need */
+  
+  /* Apply the background image and fix its position */
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed; /* This is the key property! */
+
+  /* Needed for stacking content on top */
+  position: relative;
+}

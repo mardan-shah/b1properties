@@ -41,6 +41,7 @@ export interface IPropertyData {
   id: string;
   title: string;
   heading?:string;
+  district?: string; 
   subtitle?: string;
   developedBy?: string;
   bua?: string;
@@ -52,10 +53,16 @@ export interface IPropertyData {
   bathrooms: number;
   plotSize: number;
   plotSizeUnit?: string;
+  heroImage?: string;
   images: string[];
   featured?: boolean;
+  paymentPlan?: string;
+  downPayment?: string;
+  duringConstructionPayment?: string;
+  handoverPayment?: string;
   href: string;
   tag?: string;
+  handover?: string;
   description?: string[];
   highlight?: IHighlight[];
   qrImg?: string;
@@ -63,6 +70,7 @@ export interface IPropertyData {
   designer?: IDesignerItem[];
   features?: IFeatureCategory[];
   assignedAgent?: string;
+  
 }
 
 
