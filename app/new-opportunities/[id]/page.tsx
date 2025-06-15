@@ -4,6 +4,7 @@ import { teamMembers } from "@/lib/data"
 import CustomButton from "@/components/ui/CustomButton"
 import Image from "next/image"
 import ShowcaseGrid from "@/components/ShowcaseGrid"
+import ImageWrapper from "@/components/ui/ImageWrapper"
 
 
 const page =  async ({ params }: { params: Promise<{ id: string }> }) => {
@@ -88,11 +89,18 @@ const page =  async ({ params }: { params: Promise<{ id: string }> }) => {
           </div>
         </div>
         <ShowcaseGrid images={property.images} title={property.title}/>
-        <div className="space-y-2">
-          <div className="text-2xl font-medium">Description</div>
-          {property.description?.map((desc, index) => (
-            <p className="text-sm" key={index} dangerouslySetInnerHTML={{ __html: desc }} />
-          ))}
+        <div className="my-10 md:my-20">
+          <div className="text-2xl font-medium mb-5">Description</div>
+          <div className="flex  gap-5 justify-between w-full">
+            <div className="w-1/2 space-y-2">
+              {property.description?.map((desc, index) => (
+                <p className="text-sm" key={index} dangerouslySetInnerHTML={{ __html: desc }} />
+              ))}
+            </div>
+            <div className="w-1/2">
+              <ImageWrapper src={property.images[2]} alt={property.title} width={400} height={400} className=" object-contain rounded-lg overflow-hidden"/>
+            </div>
+          </div>
         </div>
       </div>
     </div>
