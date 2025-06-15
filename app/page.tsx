@@ -6,8 +6,8 @@ import PrivateLisingSection from '@/components/PrivateListingSection';
 import CustomButton from '@/components/ui/CustomButton';
 import ShowcaseMansion from '@/components/ShowcaseMansion';
 import ParallaxSection from '@/components/ParallaxSection';
-import SoldPropertySection from '@/components/SoldPropertySection';
-import TeamSection from '@/components/TeamSection';
+import SoldPropertySection from '@/app/sold-properties/components/SoldPropertySection';
+import TeamSection from '@/app/about-us/components/TeamSection';
 import { carouselData } from '@/lib/data';
 
 

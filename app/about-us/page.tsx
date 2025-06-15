@@ -1,7 +1,7 @@
 import React from 'react'
 import CustomButton from '@/components/ui/CustomButton'
 import ImageWrapper from '@/components/ui/ImageWrapper'
-import TeamSection from '@/components/TeamSection'
+import TeamSection from '@/app/about-us/components/TeamSection'
 
 const page = () => {
   return (

@@ -1,8 +1,8 @@
 import Hero from '@/components/Hero';
 import { carouselData } from '@/lib/data';
 import ImageWrapper from '@/components/ui/ImageWrapper';
-import PrivateListings from '@/components/PrivateListings';
-import AppointmentForm from '@/components/ApointmentForm';
+import PrivateListings from '@/app/private-listings/components/PrivateListings';
+import AppointmentForm from '@/app/booking/components/ApointmentForm';
 
 const Page = () => {
   const CarouselData = [...carouselData].reverse(); // avoid mutation

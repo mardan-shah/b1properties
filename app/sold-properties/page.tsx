@@ -1,9 +1,9 @@
 import Hero from '@/components/Hero';
 import { carouselData } from '@/lib/data';
 import ImageWrapper from '@/components/ui/ImageWrapper';
-import SoldPropertySection from '@/components/SoldPropertySection';
+import SoldPropertySection from '@/app/sold-properties/components/SoldPropertySection';
 import CustomButton from '@/components/ui/CustomButton';
-import CountUpComponent from '@/components/CountUpComponent';
+import CountUpComponent from '@/app/sold-properties/components/CountUpComponent';
 
 const Page = () => {
   const CarouselData = [...carouselData].reverse(); // avoid mutation

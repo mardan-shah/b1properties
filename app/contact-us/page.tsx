@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
-import ContactCards from '@/components/ContactCards'
-import AppointmentForm from '@/components/ApointmentForm'
+import ContactCards from '@/app/contact-us/components/ContactCards'
+import AppointmentForm from '@/app/booking/components/ApointmentForm'
 
 const Page = () => {
   return (

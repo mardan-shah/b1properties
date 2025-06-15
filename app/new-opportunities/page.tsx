@@ -1,8 +1,7 @@
-import React from 'react'
 import { carouselData } from '@/lib/data'
 import Hero from '@/components/Hero'
-import Flow from '@/components/Flow'
-import NewOpportunities from '@/components/NewOpportunities'
+import Flow from '@/app/new-opportunities/components/Flow'
+import NewOpportunities from '@/app/new-opportunities/components/NewOpportunities'
 
 const page = () => {
   return (

@@ -1,5 +1,5 @@
 import React from 'react'
-import TeamSection from '@/components/TeamSection'
+import TeamSection from '@/app/about-us/components/TeamSection'
 import CustomButton from '@/components/ui/CustomButton'
 import Link from 'next/link'
 
