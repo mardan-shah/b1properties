@@ -4,7 +4,7 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import Image, { ImageProps } from "next/image";
 import { Dialog, DialogTitle, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { ChevronLeft, ChevronRight, XIcon } from "lucide-react";
+import { ChevronLeft, ChevronRight, X, XIcon } from "lucide-react";
 
 interface ImageWrapperProps extends Omit<ImageProps, 'src' | 'alt' | 'priority' | 'className'> {
   src: string;
@@ -14,9 +14,47 @@ interface ImageWrapperProps extends Omit<ImageProps, 'src' | 'alt' | 'priority' 
   className?: string;
   wrapperClassName?: string;
   openViewer?: boolean;
-  onViewerClose?: () => void; // Add callback for when viewer closes
-  // Ensure width and height or fill are passed for the trigger image via ...rest
+  onViewerClose?: () => void;
+  
+  // Feature toggles
+  enableZoom?: boolean;
+  enableNavigation?: boolean;
+  enableThumbnails?: boolean;
+  enableKeyboardNav?: boolean;
+  enableDoubleClickZoom?: boolean;
+  enableWheelZoom?: boolean;
+  enableDrag?: boolean;
+  
+  // Zoom settings
+  minZoom?: number;
+  maxZoom?: number;
+  zoomStep?: number;
+  initialZoom?: 'fit' | 'actual' | number;
+  
+  // Display settings
+  scaleMode?: 'actual' | 'contain' | 'cover';
+  backgroundColor?: string;
+  
+  // Dialog settings
+  dialogClassName?: string;
+  closeOnClickOutside?: boolean;
+  showZoomPercentage?: boolean;
+  showImageCounter?: boolean;
+  showImageDimensions?: boolean;
+  
+  // Image quality
+  quality?: number;
+  
+  // Callbacks
+  onImageChange?: (index: number) => void;
+  onZoomChange?: (zoom: number) => void;
 }
+
+
+const isSupportedImage = (src: string) => {
+  const validExtensions = [".png", ".jpg", ".jpeg", ".webp", ".avif", ".gif"];
+  return validExtensions.some(ext => src.toLowerCase().endsWith(ext));
+};
 
 const ImageWrapper: React.FC<ImageWrapperProps> = ({
   src,
@@ -27,6 +65,40 @@ const ImageWrapper: React.FC<ImageWrapperProps> = ({
   wrapperClassName,
   openViewer = false,
   onViewerClose,
+  
+  // Feature toggles
+  enableZoom = true,
+  enableNavigation = true,
+  enableThumbnails = true,
+  enableKeyboardNav = true,
+  enableDoubleClickZoom = true,
+  enableWheelZoom = true,
+  enableDrag = true,
+  
+  // Zoom settings
+  minZoom = 0.1,
+  maxZoom = 5,
+  zoomStep = 0.01,
+  initialZoom = 'actual',
+  
+  // Display settings
+  scaleMode = 'actual',
+  backgroundColor = 'bg-black/90',
+  
+  // Dialog settings
+  dialogClassName,
+  closeOnClickOutside = true,
+  showZoomPercentage = true,
+  showImageCounter = true,
+  showImageDimensions = true,
+  
+  // Image quality
+  quality = 100,
+  
+  // Callbacks
+  onImageChange,
+  onZoomChange,
+  
   ...rest
 }) => {
   const [open, setOpen] = useState(false);
@@ -49,6 +121,10 @@ const ImageWrapper: React.FC<ImageWrapperProps> = ({
 
   const [activeIndex, setActiveIndex] = useState(initialIndex);
 
+  // Show navigation controls
+  const showNavigation = enableNavigation && imagesToDisplay.length > 1;
+  const showThumbnailsBar = enableThumbnails && imagesToDisplay.length > 1;
+
   // Effect to handle external openViewer prop
   useEffect(() => {
     if (openViewer) {
@@ -64,8 +140,8 @@ const ImageWrapper: React.FC<ImageWrapperProps> = ({
     }
   }, [onViewerClose]);
 
-  // Helper to calculate the zoom level to fit the image in the container
-  const getCurrentFitZoom = useCallback(() => {
+  // Helper to calculate the zoom level to fit/contain the image in the container
+  const getContainZoom = useCallback(() => {
     if (!imageContainerRef.current || !naturalImageDimensions) return 1;
     const containerWidth = imageContainerRef.current.offsetWidth;
     const containerHeight = imageContainerRef.current.offsetHeight;
@@ -74,25 +150,74 @@ const ImageWrapper: React.FC<ImageWrapperProps> = ({
     if (naturalWidth === 0 || naturalHeight === 0 || containerWidth === 0 || containerHeight === 0) {
       return 1;
     }
-    const fitZoomRatio = Math.min(containerWidth / naturalWidth, containerHeight / naturalHeight);
-    return fitZoomRatio;
+
+    return Math.min(containerWidth / naturalWidth, containerHeight / naturalHeight);
   }, [naturalImageDimensions]);
+
+  // Helper to calculate the zoom level to cover the container
+  const getCoverZoom = useCallback(() => {
+    if (!imageContainerRef.current || !naturalImageDimensions) return 1;
+    const containerWidth = imageContainerRef.current.offsetWidth;
+    const containerHeight = imageContainerRef.current.offsetHeight;
+    const { width: naturalWidth, height: naturalHeight } = naturalImageDimensions;
+
+    if (naturalWidth === 0 || naturalHeight === 0 || containerWidth === 0 || containerHeight === 0) {
+      return 1;
+    }
+
+    return Math.max(containerWidth / naturalWidth, containerHeight / naturalHeight);
+  }, [naturalImageDimensions]);
+
+  // Get the appropriate zoom based on scale mode
+  const getScaleModeZoom = useCallback(() => {
+    if (!imageContainerRef.current || !naturalImageDimensions) return 1;
+    const containerWidth = imageContainerRef.current.offsetWidth;
+    const containerHeight = imageContainerRef.current.offsetHeight;
+    const { width: naturalWidth, height: naturalHeight } = naturalImageDimensions;
+
+    switch (scaleMode) {
+      case 'contain':
+        return getContainZoom();
+      case 'cover':
+        return getCoverZoom();
+      case 'actual':
+      default:
+        if (naturalWidth > containerWidth || naturalHeight > containerHeight) {
+          return getContainZoom();
+        }
+        return 1;
+    }
+  }, [naturalImageDimensions, scaleMode, getContainZoom, getCoverZoom]);
+
+  // Get initial zoom based on settings
+  const getInitialZoom = useCallback(() => {
+    if (typeof initialZoom === 'number') {
+      return Math.max(minZoom, Math.min(maxZoom, initialZoom));
+    }
+    if (initialZoom === 'actual') {
+      return getScaleModeZoom();
+    }
+    return getContainZoom();
+  }, [initialZoom, minZoom, maxZoom, getScaleModeZoom, getContainZoom]);
 
   // Effect for initial fit and when image/dialog state changes
   useEffect(() => {
     if (open) {
       if (naturalImageDimensions && imageContainerRef.current) {
-        const fitZoom = getCurrentFitZoom();
-        setZoomLevel(fitZoom);
+        const initialZoomLevel = getInitialZoom();
+        setZoomLevel(initialZoomLevel);
         setDragPosition({ x: 0, y: 0 });
+        
+        if (onZoomChange) {
+          onZoomChange(initialZoomLevel);
+        }
       }
     } else {
-      // Dialog closed: reset states
       setZoomLevel(1);
       setDragPosition({ x: 0, y: 0 });
       setNaturalImageDimensions(null);
     }
-  }, [open, naturalImageDimensions, activeIndex, getCurrentFitZoom]);
+  }, [open, naturalImageDimensions, activeIndex, getInitialZoom, onZoomChange]);
 
   // Effect to clear natural dimensions when image source changes (via activeIndex)
   useEffect(() => {
@@ -108,8 +233,15 @@ const ImageWrapper: React.FC<ImageWrapperProps> = ({
     }
   }, [src, initialIndex, open]);
 
+  // Notify parent when active index changes
+  useEffect(() => {
+    if (open && onImageChange) {
+      onImageChange(activeIndex);
+    }
+  }, [activeIndex, onImageChange, open]);
+
   const constrainDragPosition = useCallback((position: { x: number; y: number }, currentZoom: number) => {
-    if (!imageContainerRef.current || !naturalImageDimensions || currentZoom <= 0) {
+    if (!enableDrag || !imageContainerRef.current || !naturalImageDimensions || currentZoom <= 0) {
       return { x: 0, y: 0 };
     }
 
@@ -129,7 +261,7 @@ const ImageWrapper: React.FC<ImageWrapperProps> = ({
       x: Math.max(-maxDragX, Math.min(maxDragX, position.x)),
       y: Math.max(-maxDragY, Math.min(maxDragY, position.y)),
     };
-  }, [naturalImageDimensions]);
+  }, [naturalImageDimensions, enableDrag]);
 
   // Constrain drag position reactively when zoomLevel or naturalImageDimensions change
   useEffect(() => {
@@ -139,22 +271,26 @@ const ImageWrapper: React.FC<ImageWrapperProps> = ({
   }, [zoomLevel, naturalImageDimensions, constrainDragPosition, open]);
 
   const handleNext = useCallback(() => {
+    if (!showNavigation) return;
     setActiveIndex((prev) => (prev + 1) % imagesToDisplay.length);
-  }, [imagesToDisplay.length]);
+  }, [imagesToDisplay.length, showNavigation]);
 
   const handlePrev = useCallback(() => {
+    if (!showNavigation) return;
     setActiveIndex((prev) => (prev - 1 + imagesToDisplay.length) % imagesToDisplay.length);
-  }, [imagesToDisplay.length]);
+  }, [imagesToDisplay.length, showNavigation]);
 
   const handleWheel = useCallback((e: React.WheelEvent) => {
+    if (!enableWheelZoom || !enableZoom) return;
+    
     e.preventDefault();
     if (!naturalImageDimensions || !imageContainerRef.current) return;
 
-    const fitZoom = getCurrentFitZoom();
-    const minZoomAllowed = Math.max(fitZoom * 0.5, 0.1);
-    const maxZoomAllowed = 5;
+    const containZoom = getContainZoom();
+    const minZoomAllowed = Math.max(minZoom, containZoom * 0.5);
+    const maxZoomAllowed = maxZoom;
 
-    const delta = e.deltaY * -0.01;
+    const delta = e.deltaY * -zoomStep;
     let newZoom = zoomLevel * Math.exp(delta);
     newZoom = Math.max(minZoomAllowed, Math.min(maxZoomAllowed, newZoom));
 
@@ -175,10 +311,14 @@ const ImageWrapper: React.FC<ImageWrapperProps> = ({
 
     setZoomLevel(newZoom);
     setDragPosition(constrainDragPosition({ x: newDragX, y: newDragY }, newZoom));
-  }, [zoomLevel, dragPosition, constrainDragPosition, naturalImageDimensions, getCurrentFitZoom]);
+    
+    if (onZoomChange) {
+      onZoomChange(newZoom);
+    }
+  }, [zoomLevel, dragPosition, constrainDragPosition, naturalImageDimensions, getContainZoom, enableWheelZoom, enableZoom, minZoom, maxZoom, zoomStep, onZoomChange]);
 
   const handleMouseDown = useCallback((e: React.MouseEvent | React.TouchEvent) => {
-    if (!naturalImageDimensions || !imageContainerRef.current) return;
+    if (!enableDrag || !naturalImageDimensions || !imageContainerRef.current) return;
 
     const containerWidth = imageContainerRef.current.offsetWidth;
     const containerHeight = imageContainerRef.current.offsetHeight;
@@ -197,10 +337,10 @@ const ImageWrapper: React.FC<ImageWrapperProps> = ({
       x: clientX - dragPosition.x,
       y: clientY - dragPosition.y,
     });
-  }, [zoomLevel, dragPosition, naturalImageDimensions]);
+  }, [zoomLevel, dragPosition, naturalImageDimensions, enableDrag]);
 
   const handleMouseMove = useCallback((e: MouseEvent | TouchEvent) => {
-    if (!isDragging || !naturalImageDimensions) return;
+    if (!isDragging || !naturalImageDimensions || !enableDrag) return;
 
     const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
     const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
@@ -209,7 +349,7 @@ const ImageWrapper: React.FC<ImageWrapperProps> = ({
       y: clientY - dragStart.y,
     };
     setDragPosition(constrainDragPosition(newPosition, zoomLevel));
-  }, [isDragging, dragStart, zoomLevel, constrainDragPosition, naturalImageDimensions]);
+  }, [isDragging, dragStart, zoomLevel, constrainDragPosition, naturalImageDimensions, enableDrag]);
 
   const handleMouseUp = useCallback(() => {
     setIsDragging(false);
@@ -231,6 +371,8 @@ const ImageWrapper: React.FC<ImageWrapperProps> = ({
   }, [isDragging, handleMouseMove, handleMouseUp]);
 
   useEffect(() => {
+    if (!enableKeyboardNav) return;
+    
     const handleKeyDown = (event: KeyboardEvent) => {
       if (!open) return;
       if (event.key === "ArrowRight") handleNext();
@@ -239,19 +381,19 @@ const ImageWrapper: React.FC<ImageWrapperProps> = ({
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [open, handleNext, handlePrev, handleOpenChange]);
+  }, [open, handleNext, handlePrev, handleOpenChange, enableKeyboardNav]);
 
   const handleDoubleClick = useCallback((e: React.MouseEvent) => {
-    if (!naturalImageDimensions || !imageContainerRef.current) return;
+    if (!enableDoubleClickZoom || !enableZoom || !naturalImageDimensions || !imageContainerRef.current) return;
 
-    const fitZoom = getCurrentFitZoom();
-    const zoomedInTarget = Math.min(Math.max(fitZoom * 2.5, 1.0), 5);
+    const currentScaleModeZoom = getScaleModeZoom();
+    const zoomedInTarget = Math.min(Math.max(currentScaleModeZoom * 2.5, 1.0), maxZoom);
 
     let targetZoom;
-    if (Math.abs(zoomLevel - fitZoom) < 0.05) {
+    if (Math.abs(zoomLevel - currentScaleModeZoom) < 0.05) {
       targetZoom = zoomedInTarget;
     } else {
-      targetZoom = fitZoom;
+      targetZoom = currentScaleModeZoom;
     }
 
     const rect = imageContainerRef.current.getBoundingClientRect();
@@ -267,7 +409,51 @@ const ImageWrapper: React.FC<ImageWrapperProps> = ({
 
     setZoomLevel(targetZoom);
     setDragPosition(constrainDragPosition({ x: newDragX, y: newDragY }, targetZoom));
-  }, [zoomLevel, dragPosition, naturalImageDimensions, getCurrentFitZoom, constrainDragPosition]);
+    
+    if (onZoomChange) {
+      onZoomChange(targetZoom);
+    }
+  }, [zoomLevel, dragPosition, naturalImageDimensions, getScaleModeZoom, constrainDragPosition, enableDoubleClickZoom, enableZoom, maxZoom, onZoomChange]);
+
+  // Handle thumbnail click - Fixed to prevent duplication
+  const handleThumbnailClick = useCallback((e: React.MouseEvent, idx: number) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (idx !== activeIndex) {
+      setActiveIndex(idx);
+    }
+  }, [activeIndex]);
+
+  // Determine cursor style
+  const getCursorClass = () => {
+    if (!enableZoom && !enableDrag) return '';
+    if (!naturalImageDimensions) return '';
+    
+    const containerWidth = imageContainerRef.current?.offsetWidth || 0;
+    const containerHeight = imageContainerRef.current?.offsetHeight || 0;
+    const scaledImgWidth = naturalImageDimensions.width * zoomLevel;
+    const scaledImgHeight = naturalImageDimensions.height * zoomLevel;
+    
+    const canDrag = enableDrag && (scaledImgWidth > containerWidth || scaledImgHeight > containerHeight);
+    
+    if (canDrag) {
+      return isDragging ? 'cursor-grabbing' : 'cursor-grab';
+    } else if (enableZoom && enableDoubleClickZoom) {
+      return 'cursor-zoom-in';
+    }
+    return '';
+  };
+
+  // Calculate display percentage relative to actual size
+  const getDisplayPercentage = () => {
+    if (!naturalImageDimensions) return 100;
+    return Math.round(zoomLevel * 100);
+  };
+
+  // Check if image is being scaled down from actual size
+  const isScaledDown = () => {
+    return naturalImageDimensions && zoomLevel < 0.99;
+  };
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
@@ -283,53 +469,49 @@ const ImageWrapper: React.FC<ImageWrapperProps> = ({
         </div>
       </DialogTrigger>
       <DialogTitle className="sr-only">{alt}</DialogTitle>
-      <DialogContent className="min-w-[95vw] w-full h-[90vh] p-2 sm:p-3 bg-black/90 backdrop-blur-md flex flex-col z-[9999] focus:outline-none border-none shadow-2xl rounded-lg">
+      <DialogContent 
+        showCloseButton={false}
+        className={`min-w-[95vw] md:min-w-[75vw] w-full h-[80vh] mt-8 p-2 sm:p-3 ${backgroundColor} backdrop-blur-md flex flex-col z-[9999] focus:outline-none border-none shadow-2xl rounded-lg ${dialogClassName || ''}`}
+        onPointerDownOutside={closeOnClickOutside ? undefined : (e) => e.preventDefault()}
+      >
         <button
           onClick={() => handleOpenChange(false)}
-          className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 p-2 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors focus:outline-none focus:ring-2 focus:ring-white"
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 p-2 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors cursor-pointer"
           aria-label="Close image preview"
         >
-          <XIcon size={24} />
+          <X size={24} />
         </button>
 
         <div
           ref={imageContainerRef}
           className="relative flex-grow w-full flex items-center justify-center my-1 sm:my-0 overflow-hidden"
-          onWheel={naturalImageDimensions ? handleWheel : undefined}
+          onWheel={naturalImageDimensions && enableWheelZoom ? handleWheel : undefined}
         >
           <div
-            className={`transition-transform duration-75 origin-center ${
-              naturalImageDimensions &&
-              (naturalImageDimensions.width * zoomLevel > (imageContainerRef.current?.offsetWidth || 0) ||
-               naturalImageDimensions.height * zoomLevel > (imageContainerRef.current?.offsetHeight || 0))
-                ? isDragging ? 'cursor-grabbing' : 'cursor-grab'
-                : 'cursor-zoom-in'
-            }`}
+            className={`transition-transform duration-75 origin-center ${getCursorClass()}`}
             style={{
               transform: `scale(${zoomLevel}) translate(${dragPosition.x / zoomLevel}px, ${dragPosition.y / zoomLevel}px)`,
-              maxWidth: '100%',
-              maxHeight: '100%',
             }}
-            onMouseDown={naturalImageDimensions ? handleMouseDown : undefined}
-            onTouchStart={naturalImageDimensions ? handleMouseDown : undefined}
-            onDoubleClick={naturalImageDimensions ? handleDoubleClick : undefined}
+            onMouseDown={naturalImageDimensions && enableDrag ? handleMouseDown : undefined}
+            onTouchStart={naturalImageDimensions && enableDrag ? handleMouseDown : undefined}
+            onDoubleClick={naturalImageDimensions && enableDoubleClickZoom ? handleDoubleClick : undefined}
           >
-            {open && (
+            {(open && (imagesToDisplay[activeIndex]))  &&  (
               <Image
                 key={imagesToDisplay[activeIndex]}
                 src={imagesToDisplay[activeIndex]}
                 alt={`${alt} - Image ${activeIndex + 1} of ${imagesToDisplay.length}`}
-                className="select-none object-contain"
+                className="select-none"
                 priority
-                width={1920}
-                height={1080}
+                width={naturalImageDimensions?.width || 1920}
+                height={naturalImageDimensions?.height || 1080}
                 sizes="(max-width: 640px) 95vw, (max-width: 1200px) 90vw, 80vw"
-                quality={90}
+                quality={quality}
                 style={{
-                  width: 'auto',
-                  height: 'auto',
-                  maxWidth: '100%',
-                  maxHeight: '100%',
+                  width: naturalImageDimensions ? `${naturalImageDimensions.width}px` : 'auto',
+                  height: naturalImageDimensions ? `${naturalImageDimensions.height}px` : 'auto',
+                  maxWidth: 'none',
+                  maxHeight: 'none',
                 }}
                 onLoadingComplete={({ naturalWidth, naturalHeight }) => {
                   setNaturalImageDimensions({ width: naturalWidth, height: naturalHeight });
@@ -339,58 +521,84 @@ const ImageWrapper: React.FC<ImageWrapperProps> = ({
           </div>
         </div>
         
-        {imagesToDisplay.length > 1 && (
+        {showNavigation && (
           <button
             onClick={handlePrev}
             disabled={!naturalImageDimensions}
-            className="absolute left-1 sm:left-2 md:left-3 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-3 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors focus:outline-none focus:ring-2 focus:ring-white disabled:opacity-50"
+            className="absolute left-1 sm:left-2 md:left-3 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-3 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors focus:outline-none disabled:opacity-50 cursor-pointer"
             aria-label="Previous image"
           >
             <ChevronLeft size={18} className="sm:size-5" />
           </button>
         )}
-        {imagesToDisplay.length > 1 && (
+        {showNavigation && (
           <button
             onClick={handleNext}
             disabled={!naturalImageDimensions}
-            className="absolute right-1 sm:right-2 md:right-3 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-3 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors focus:outline-none focus:ring-2 focus:ring-white disabled:opacity-50"
+            className="absolute right-1 sm:right-2 md:right-3 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-3 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors focus:outline-none disabled:opacity-50 cursor-pointer"
             aria-label="Next image"
           >
             <ChevronRight size={18} className="sm:size-5" />
           </button>
         )}
 
-        {imagesToDisplay.length > 1 && (
+        {showThumbnailsBar && (
           <div className="w-full h-[70px] sm:h-[90px] flex-shrink-0 mt-auto no-scrollbar">
             <div className="flex gap-2 overflow-x-auto p-1 sm:p-2 h-full items-center justify-center">
               {imagesToDisplay.map((imgSrc, idx) => (
-                <button
-                  key={imgSrc + idx}
-                  className={`h-14 w-20 sm:h-[70px] sm:w-28 flex-shrink-0 rounded border-2 transition-all duration-150 ease-in-out relative overflow-hidden focus:outline-none
-                                  ${idx === activeIndex ? "border-white ring-2 ring-white scale-105" : "border-transparent hover:border-neutral-400 opacity-60 hover:opacity-100 focus:border-neutral-400"}`}
-                  onClick={() => {
-                    if (idx !== activeIndex) setActiveIndex(idx);
-                  }}
-                  aria-label={`View image ${idx + 1}`}
-                >
-                  <Image
-                    src={imgSrc}
-                    alt={`Thumbnail of ${alt} ${idx + 1}`}
-                    fill
-                    className="object-cover"
-                    sizes="10vw"
-                  />
-                </button>
+                <div>
+                  {imgSrc && (
+                    <button
+                      key={`${imgSrc}-${idx}`}
+                      className={`h-14 w-20 sm:h-[70px] sm:w-28 flex-shrink-0 rounded border-2 transition-all duration-150 ease-in-out relative overflow-hidden focus:outline-none
+                                      ${idx === activeIndex ? "border-white ring-2 ring-white scale-105" : "border-transparent hover:border-neutral-400 opacity-60 hover:opacity-100 focus:border-neutral-400"}`}
+                      onClick={(e) => handleThumbnailClick(e, idx)}
+                      onMouseDown={(e) => e.preventDefault()}
+                      type="button"
+                      aria-label={`View image ${idx + 1}`}
+                    >
+                        <Image
+                          src={imgSrc}
+                          alt={`Thumbnail of ${alt} ${idx + 1}`}
+                          fill
+                          className="object-cover pointer-events-none"
+                          sizes="10vw"
+                          draggable={false}
+                        />                  
+                    </button>
+                  )}
+                </div>
               ))}
+              
             </div>
           </div>
         )}
 
-        {naturalImageDimensions && zoomLevel > getCurrentFitZoom() * 1.05 && (
-          <div className="absolute bottom-3 left-3 z-20 text-white text-xs bg-black/50 px-2 py-1 rounded-md">
-            {Math.round(zoomLevel / getCurrentFitZoom() * 100)}%
+        {showImageCounter && imagesToDisplay.length > 1 && (
+          <div className="absolute top-3 left-3 z-20 text-white text-xs bg-black/50 px-2 py-1 rounded-md">
+            {activeIndex + 1} / {imagesToDisplay.length}
           </div>
         )}
+
+        {/* {naturalImageDimensions && (
+          <div className="absolute bottom-3 left-3 z-20 text-white text-xs bg-black/50 px-2 py-1 rounded-md space-y-0.5">
+            {showImageDimensions && (
+              <div>
+                {naturalImageDimensions.width} × {naturalImageDimensions.height}px
+              </div>
+            )}
+            {showZoomPercentage && (
+              <div className="flex items-center gap-1">
+                <span>{getDisplayPercentage()}%</span>
+                {isScaledDown() && (
+                  <span className="text-yellow-400" title="Image scaled down to fit">
+                    (fit)
+                  </span>
+                )}
+              </div>
+            )}
+          </div>
+        )} */}
       </DialogContent>
     </Dialog>
   );
