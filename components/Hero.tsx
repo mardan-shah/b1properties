@@ -50,6 +50,8 @@ const CarouselItem = memo(({ item, index }: { item: iCarouselItemData; index: nu
       className="w-full h-full"
       priority={index === 0}
       loading={index === 0 ? "eager" : "lazy"}
+      placeholder="blur"
+      blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
     />
     <div className="absolute inset-0 bg-black/40 flex items-center justify-center font-lora">
       <div className="text-center text-white px-4 fade-in">
