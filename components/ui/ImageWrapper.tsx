@@ -465,7 +465,7 @@ const ImageWrapper: React.FC<ImageWrapperProps> = ({
             className={`transition-transform duration-300 group-hover:scale-105 w-full h-full object-cover ${className || ''}`}
             priority={priority}
             placeholder="blur"
-            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg=="
+            blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyMCIgaGVpZ2h0PSIxMDgwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiMxYTFhMWEiLz48L3N2Zz4="
             {...rest}
           />
         </div>
@@ -510,7 +510,7 @@ const ImageWrapper: React.FC<ImageWrapperProps> = ({
                 sizes="(max-width: 640px) 95vw, (max-width: 1200px) 90vw, 80vw"
                 quality={quality}
                 placeholder="blur"
-                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg=="
+                blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyMCIgaGVpZ2h0PSIxMDgwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiMxYTFhMWEiLz48L3N2Zz4="
                 style={{
                   width: naturalImageDimensions ? `${naturalImageDimensions.width}px` : 'auto',
                   height: naturalImageDimensions ? `${naturalImageDimensions.height}px` : 'auto',
